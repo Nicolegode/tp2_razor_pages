@@ -1,73 +1,34 @@
 @page
 @model CidadesTuristicas.Pages.CityManager.CreateCityModel
 @{
-    ViewData["Title"] = "Cadastrar Nova Cidade Turística - Data Annotations";
+    ViewData["Title"] = "Cadastrar Cidade - Validação Client-Side";
 }
 
 <div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow">
-                <div class="card-header bg-primary text-white">
-                    <h2 class="mb-0">Cadastrar Nova Cidade Turística</h2>
-                    <small class="text-light">Usando Data Annotations para Validação</small>
+    <div class="card">
+        <div class="card-header">
+            <h2>Cadastrar Nova Cidade</h2>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div class="mb-3">
+                    <label asp-for="Input.CityName" class="form-label"></label>
+                    <input asp-for="Input.CityName" class="form-control" />
+                    <span asp-validation-for="Input.CityName" class="text-danger"></span>
                 </div>
-                <div class="card-body">
-                    <div class="alert alert-info">
-                        <strong>Validações Aplicadas:</strong>
-                        <ul class="mb-0">
-                            <li>Campo obrigatório</li>
-                            <li>Mínimo de 3 caracteres</li>
-                        </ul>
-                    </div>
 
-                    <form method="post">
-                        <div class="mb-3">
-                            <label asp-for="Input.CityName" class="form-label fw-bold"></label>
-                            <input asp-for="Input.CityName" 
-                                   class="form-control form-control-lg" 
-                                   placeholder="Digite o nome da cidade turística (mín. 3 caracteres)" />
-                            <span asp-validation-for="Input.CityName" class="text-danger"></span>
-                        </div>
-
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <button type="submit" class="btn btn-primary btn-lg px-4">
-                                Cadastrar Cidade
-                            </button>
-                            <a href="/" class="btn btn-outline-secondary btn-lg px-4">
-                                Voltar
-                            </a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            @if (!string.IsNullOrEmpty(Model.SuccessMessage))
-            {
-                <div class="alert alert-success alert-dismissible fade show mt-4" role="alert">
-                    <div class="d-flex align-items-center">
-                        <div>
-                            <h5 class="alert-heading mb-1">Validação Bem-Sucedida!</h5>
-                            <p class="mb-0">@Model.SuccessMessage</p>
-                        </div>
-                    </div>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-            }
-
-            @if (!ViewData.ModelState.IsValid)
-            {
-                <div class="card mt-3 border-danger">
-                    <div class="card-header bg-danger text-white">
-                        <h6 class="mb-0">Erros de Validação Encontrados</h6>
-                    </div>
-                    <div class="card-body">
-                        <div asp-validation-summary="All" class="text-danger"></div>
-                    </div>
-                </div>
-            }
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                <a href="/" class="btn btn-secondary">Voltar</a>
+            </form>
         </div>
     </div>
+
+    @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+    {
+        <div class="alert alert-success mt-3">
+            @Model.SuccessMessage
+        </div>
+    }
 </div>
 
 @section Scripts {
