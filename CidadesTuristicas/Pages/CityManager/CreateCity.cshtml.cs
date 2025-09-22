@@ -5,21 +5,22 @@ namespace CidadesTuristicas.Pages.CityManager
 {
     public class CreateCityModel : PageModel
     {
-        [BindProperty]
-        public string CityName { get; set; } = string.Empty;
-
+        public string? CityName { get; set; }
+        
         public void OnGet()
         {
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPost(string cityName)
         {
-            if (string.IsNullOrWhiteSpace(CityName))
+            if (string.IsNullOrWhiteSpace(cityName))
             {
-                ModelState.AddModelError(nameof(CityName), "O nome da cidade é obrigatório.");
+                ModelState.AddModelError("cityName", "O nome da cidade é obrigatório.");
                 return Page();
             }
 
+            CityName = cityName;
+            
             return Page();
         }
     }
