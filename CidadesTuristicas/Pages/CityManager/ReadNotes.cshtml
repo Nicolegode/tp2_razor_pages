@@ -1,0 +1,133 @@
+@page "/CityManager/ReadNotes"
+@model CidadesTuristicas.Pages.CityManager.ReadNotesModel
+@{
+    ViewData["Title"] = "Ler Notas";
+}
+
+<div class="container mt-4">
+    <h1>Ler Notas Salvas</h1>
+    <p>Visualize o conteúdo dos arquivos .txt salvos</p>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Arquivos Disponíveis (@Model.Files.Count)</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.Files.Any())
+                    {
+                        <div class="list-group">
+                            @foreach (var file in Model.Files)
+                            {
+                                <a href="/CityManager/ReadNotes?fileName=@file.Name" 
+                                   class="list-group-item list-group-item-action @(Model.SelectedFileName == file.Name ? "active" : "")">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1">@file.Name</h6>
+                                        <small>@file.CreationTime.ToString("dd/MM HH:mm")</small>
+                                    </div>
+                                    <p class="mb-1">
+                                        <small>Tamanho: @(file.Length) bytes</small>
+                                    </p>
+                                </a>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i>
+                            Nenhum arquivo encontrado.
+                            <br>
+                            <a href="/CityManager/SaveNote" class="btn btn-sm btn-primary mt-2">
+                                Criar primeira nota
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-8">
+            @if (!string.IsNullOrEmpty(Model.SelectedFileName))
+            {
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-file-alt"></i>
+                            @Model.SelectedFileName
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        @if (!string.IsNullOrEmpty(Model.FileContent))
+                        {
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <small class="text-muted">
+                                        <strong>Criado em:</strong> @Model.FileCreatedDate?.ToString("dd/MM/yyyy HH:mm:ss")
+                                    </small>
+                                </div>
+                                <div class="col-md-6">
+                                    <small class="text-muted">
+                                        <strong>Tamanho:</strong> @Model.FileSize bytes
+                                    </small>
+                                </div>
+                            </div>
+                            
+                            <div class="border p-3 bg-light">
+                                <pre style="white-space: pre-wrap; word-wrap: break-word;">@Model.FileContent</pre>
+                            </div>
+                            
+                            <div class="mt-3">
+                                <a href="/files/@Model.SelectedFileName" 
+                                   class="btn btn-primary btn-sm" 
+                                   download="@Model.SelectedFileName"
+                                   >
+                                    <i class="fas fa-download"></i> Download
+                                </a>
+                                <button class="btn btn-secondary btn-sm" onclick="copyToClipboard()">
+                                    <i class="fas fa-copy"></i> Copiar Texto
+                                </button>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-warning">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Não foi possível ler o conteúdo do arquivo.
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-file-alt fa-4x text-muted mb-3"></i>
+                        <h5>Selecione um arquivo</h5>
+                        <p class="text-muted">Clique em um arquivo da lista ao lado para visualizar seu conteúdo.</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <a href="/CityManager/SaveNote" class="btn btn-success">
+            <i class="fas fa-plus"></i> Nova Nota
+        </a>
+        <a href="/" class="btn btn-secondary">
+            <i class="fas fa-home"></i> Voltar ao Início
+        </a>
+    </div>
+</div>
+
+<script>
+function copyToClipboard() {
+    const content = @Html.Raw(Json.Serialize(Model.FileContent ?? ""));
+    navigator.clipboard.writeText(content).then(function() {
+        alert('Texto copiado para a área de transferência!');
+    });
+}
+</script>
