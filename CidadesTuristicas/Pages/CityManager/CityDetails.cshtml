@@ -1,0 +1,12 @@
+@page "/CityManager/CityDetails/{cityName}"
+@model CidadesTuristicas.Pages.CityManager.CityDetailsModel
+@{
+    ViewData["Title"] = "Detalhes da Cidade";
+}
+
+<div class="container mt-4">
+    <h1>Detalhes da Cidade</h1>
+    <h2>Você está vendo detalhes de: @Model.CityName</h2>
+    
+    <p><a href="/">Voltar para Home</a></p>
+</div>

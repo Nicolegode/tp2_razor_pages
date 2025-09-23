@@ -11,31 +11,32 @@
     </div>
 
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header bg-primary text-white">
                     <h3 class="mb-0">Menu Principal</h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
                             <div class="card h-100 border-info">
                                 <div class="card-body text-center">
                                     <i class="fas fa-city fa-3x text-info mb-3"></i>
                                     <h5 class="card-title">Cadastrar Cidade</h5>
-                                    <p class="card-text">Cadastre uma nova cidade turística no sistema.</p>
+                                    <p class="card-text">Cadastre uma nova cidade turística.</p>
                                     <a href="/CityManager/CreateCity" class="btn btn-info">
                                         <i class="fas fa-plus"></i> Nova Cidade
                                     </a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 mb-3">
+                        
+                        <div class="col-md-4 mb-3">
                             <div class="card h-100 border-success">
                                 <div class="card-body text-center">
                                     <i class="fas fa-globe fa-3x text-success mb-3"></i>
                                     <h5 class="card-title">Cadastrar Países</h5>
-                                    <p class="card-text">Cadastre múltiplos países em uma única submissão.</p>
+                                    <p class="card-text">Cadastre múltiplos países.</p>
                                     <a href="/CityManager/CreateCountry" class="btn btn-success">
                                         <i class="fas fa-plus"></i> Múltiplos Países
                                     </a>
@@ -43,34 +44,15 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="row justify-content-center mt-4">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header bg-light">
-                    <h4 class="mb-0">Funcionalidades do Sistema</h4>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h6><i class="fas fa-check text-success"></i> Cadastro de Cidades</h6>
-                            <ul class="list-unstyled ms-3">
-                                <li>• Validação client-side</li>
-                                <li>• Campos obrigatórios</li>
-                                <li>• Interface responsiva</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-6">
-                            <h6><i class="fas fa-check text-success"></i> Cadastro de Países</h6>
-                            <ul class="list-unstyled ms-3">
-                                <li>• Múltiplos registros</li>
-                                <li>• Até 5 países por vez</li>
-                                <li>• Código de 2 letras</li>
-                            </ul>
+                    
+                    <div class="mt-4">
+                        <h5>Exemplos de Cidades:</h5>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a href="/CityManager/CityDetails/Rio-de-Janeiro" class="btn btn-outline-primary btn-sm">Rio de Janeiro</a>
+                            <a href="/CityManager/CityDetails/Sao-Paulo" class="btn btn-outline-primary btn-sm">São Paulo</a>
+                            <a href="/CityManager/CityDetails/Salvador" class="btn btn-outline-primary btn-sm">Salvador</a>
+                            <a href="/CityManager/CityDetails/Brasilia" class="btn btn-outline-primary btn-sm">Brasília</a>
+                            <a href="/CityManager/CityDetails/Recife" class="btn btn-outline-primary btn-sm">Recife</a>
                         </div>
                     </div>
                 </div>
