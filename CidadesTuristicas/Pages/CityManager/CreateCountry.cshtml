@@ -1,32 +1,88 @@
 @page
 @model CidadesTuristicas.Pages.CityManager.CreateCountryModel
-
-<h2>Cadastrar País</h2>
-
-<form method="post">
-    <div>
-        <label asp-for="Input.CountryName">Nome do País:</label>
-        <input asp-for="Input.CountryName" />
-        <span asp-validation-for="Input.CountryName" class="text-danger"></span>
-    </div>
-    
-    <div>
-        <label asp-for="Input.CountryCode">Código:</label>
-        <input asp-for="Input.CountryCode" />
-        <span asp-validation-for="Input.CountryCode" class="text-danger"></span>
-    </div>
-
-    <button type="submit">Cadastrar</button>
-</form>
-
-@if (Model.CreatedCountry != null)
-{
-    <div>
-        <h3>País Criado:</h3>
-        <p>Nome: @Model.CreatedCountry.CountryName</p>
-        <p>Código: @Model.CreatedCountry.CountryCode</p>
-    </div>
+@{
+    ViewData["Title"] = "Cadastrar Múltiplos Países - Validação Client-Side";
 }
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h2>Cadastrar Múltiplos Países</h2>
+            <p class="mb-0">Preencha os dados dos países (até 5 registros):</p>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                
+                @* Loop para gerar dinamicamente 5 linhas no formulário *@
+                @for (int i = 0; i < Model.Countries.Count; i++)
+                {
+                    <div class="card mb-3">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">País #@(i + 1)</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <label asp-for="Countries[i].CountryName" class="form-label">Nome do País</label>
+                                    <input asp-for="Countries[i].CountryName" class="form-control" placeholder="Ex: Brasil" />
+                                    <span asp-validation-for="Countries[i].CountryName" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label asp-for="Countries[i].CountryCode" class="form-label">Código (2 letras)</label>
+                                    <input asp-for="Countries[i].CountryCode" class="form-control" maxlength="2" 
+                                           style="text-transform: uppercase;" placeholder="Ex: BR" />
+                                    <span asp-validation-for="Countries[i].CountryCode" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                    <button type="submit" class="btn btn-primary btn-lg">Cadastrar Países</button>
+                    <a href="/" class="btn btn-secondary btn-lg">Voltar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @* Exibe mensagem de sucesso *@
+    @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+    {
+        <div class="alert alert-success mt-3">
+            <i class="fas fa-check-circle"></i> @Model.SuccessMessage
+        </div>
+    }
+
+    @* Exibe os países submetidos após a submissão *@
+    @if (Model.CreatedCountries != null && Model.CreatedCountries.Any())
+    {
+        <div class="card mt-4">
+            <div class="card-header bg-success text-white">
+                <h3 class="mb-0">Países Cadastrados com Sucesso</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    @foreach (var country in Model.CreatedCountries)
+                    {
+                        <div class="col-md-6 col-lg-4 mb-3">
+                            <div class="card border-success">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title text-success">@country.CountryName</h5>
+                                    <p class="card-text">
+                                        <strong>Código:</strong> 
+                                        <span class="badge bg-success">@country.CountryCode</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
