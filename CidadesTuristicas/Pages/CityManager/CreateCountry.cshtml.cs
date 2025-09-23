@@ -18,6 +18,7 @@ namespace CidadesTuristicas.Pages.CityManager
             public string CountryName { get; set; } = string.Empty;
 
             [Required(ErrorMessage = "Código obrigatório")]
+            [StringLength(2, MinimumLength = 2, ErrorMessage = "O código deve ter exatamente 2 caracteres (ex: BR)")]
             public string CountryCode { get; set; } = string.Empty;
         }
 
